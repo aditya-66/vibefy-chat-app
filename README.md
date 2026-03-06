@@ -20,9 +20,9 @@
 ## 📂 Database Schema
 *The app uses the following core tables in MySQL:*
 
-- users: Stores user credentials and registration info.
-- messages: Stores chat history between users.
-- call_history: Logs call details (caller, receiver, type, and time).
+- Users: Stores user credentials and registration info.
+- Messages: Stores chat history between users.
+- Call_history: Logs call details (caller, receiver, type, and time).
 
 ## 🛡️ Security
 
