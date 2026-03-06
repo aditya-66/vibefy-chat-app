@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 220" width="100%" height="100%">
+  <defs>
+    <linearGradient id="neonGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ff007a" />
+      <stop offset="100%" stop-color="#00f2fe" />
+    </linearGradient>
+    
+    <linearGradient id="waveGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" />
+      <stop offset="100%" stop-color="#b8c6ff" />
+    </linearGradient>
+    
+    <filter id="glow" x="-10%" y="-10%" width="120%" height="120%">
+      <feGaussianBlur stdDeviation="6" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <path d="M 60 30 C 30 30 30 60 30 110 C 30 160 30 190 60 190 L 70 190 L 45 215 L 90 190 L 160 190 C 190 190 190 160 190 110 C 190 60 190 30 160 30 Z" fill="url(#neonGrad)" filter="url(#glow)"/>
+
+  <path d="M 62 36 C 36 36 36 62 36 110 C 36 158 36 184 62 184 L 73 184 L 56 201 L 88 184 L 158 184 C 184 184 184 158 184 110 C 184 62 184 36 158 36 Z" fill="#12121a" opacity="0.95"/>
+
+  <rect x="62" y="80" width="14" height="60" rx="7" fill="url(#waveGrad)"/>
+  <rect x="84" y="100" width="14" height="40" rx="7" fill="url(#waveGrad)"/>
+  <rect x="106" y="120" width="14" height="20" rx="7" fill="#00f2fe"/>
+  <rect x="128" y="100" width="14" height="40" rx="7" fill="url(#waveGrad)"/>
+  <rect x="150" y="80" width="14" height="60" rx="7" fill="url(#waveGrad)"/>
+</svg>

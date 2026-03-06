@@ -1,0 +1,722 @@
+:root {
+    /* DEFAULT: Dark Theme Variables (Vibefy Aesthetics) */
+    --bg-main: rgba(18, 18, 20, 0.92);
+    --bg-sidebar: #000000; /* Pure Jet Black */
+    --bg-panel: rgba(32, 32, 38, 0.8);
+    --bg-input: rgba(45, 45, 53, 0.7);
+    --bg-modal: #1a1a1f;
+    --text-primary: #f2f2f2;
+    --text-secondary: #a0a0a8;
+    --text-muted: #656570;
+    --accent-main: #4d4d59; 
+    --accent-solid: #e0e0e0; 
+    --btn-text: #121212;
+    --status-online: #4ade80;
+}
+
+.light-theme {
+    /* Perfect Light Theme Overrides */
+    --bg-main: rgba(245, 245, 250, 0.9);
+    --bg-sidebar: rgba(255, 255, 255, 0.95);
+    --bg-panel: rgba(250, 250, 255, 0.8);
+    --bg-input: rgba(230, 230, 235, 0.7);
+    --bg-modal: #ffffff;
+    --text-primary: #121212;
+    --text-secondary: #505058;
+    --text-muted: #858590;
+    --accent-main: #d0d0db; 
+    --accent-solid: #2c2c35; 
+    --btn-text: #ffffff;
+    --status-online: #16a34a;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Outfit', sans-serif; }
+
+body {
+    height: 100vh; width: 100vw; overflow: hidden;
+    background: url('') no-repeat center center fixed; 
+    background-size: cover; color: var(--text-primary); transition: background 0.1s ease;
+}
+
+.hidden { display: none !important; }
+.squircle { border-radius: 20px; } /* Perfect Avatar Shape */
+
+/* Deep Solid Black Full Screen */
+.splash-screen-black {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    background-color: #000000; /* Force Deep Jet Black */
+    display: flex;
+    justify-content: center;
+    align-items: center; /* PERFECTLY CENTER LOCKED */
+    z-index: 9999;
+    overflow: hidden;
+}
+
+/* Central container for precise alignment */
+.splash-center-lock {
+    display: flex;
+    align-items: center;
+    gap: 12px; /* Fixed spacing between logo and text */
+    position: relative;
+    z-index: 10;
+}
+
+/* 🌀 Logo Animation (Snap & Fade-In) */
+.logo-snap {
+    width: 90px;
+    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.05)); /* Subtle white glow contextually standardLogic contrast */
+    opacity: 0;
+    animation: logoSnapEntry 0.8s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+}
+
+/* ✨ Text Animation (Holographic Reveal) ✨ */
+.vibefy-text-reveal {
+    /* Angelos Style Bubbly Font reference */
+    font-family: 'Luckiest Guy', cursive !important;
+    font-size: 58px;
+    margin: 0;
+    width: 0; /* Hidden */
+    overflow: hidden;
+    white-space: nowrap;
+    opacity: 0;
+    text-transform: uppercase;
+    
+    /* Silver Metallic Gradient (angelos logic) */
+    background: linear-gradient(to bottom, #ffffff 0%, #d1d1d1 50%, #ffffff 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(3px 3px 0px #333); /* depth logic from angelos */
+    
+    animation: textHolographicReveal 0.6s ease-out 0.8s forwards; /* 0.8s delay after logo standardLogic context */
+}
+
+/* Keyframes for Solid Black Center Transition standard Logic context */
+@keyframes logoSnapEntry {
+    0% { transform: scale(1.5); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes textHolographicReveal {
+    0% { width: 0; opacity: 0; transform: translateX(-10px); }
+    100% { width: 220px; opacity: 1; transform: translateX(10px); } /* Slide Right */
+}
+
+/* ================= AUTHENTICATION ================= */
+.auth-logo { width: 50px; margin-bottom: 15px; }
+.auth-input { width: 100%; padding: 12px; margin-bottom: 15px; border-radius: 6px; background: var(--bg-input); border: 1px solid rgba(150,150,150,0.1); color: var(--text-primary); }
+.auth-btn { width: 100%; padding: 12px; background: var(--accent-solid); color: var(--btn-text); border: none; border-radius: 6px; font-weight: 600; cursor: pointer; transition: 0.2s; display: flex; align-items: center; justify-content: center; gap: 10px; }
+.auth-btn:hover { opacity: 0.9; }
+.auth-btn.secondary { background: transparent; border: 1px solid var(--text-muted); color: var(--text-secondary); margin-top: 10px; }
+.auth-switch { margin-top: 15px; font-size: 12px; color: var(--text-secondary); }
+.auth-switch span { color: var(--accent-solid); cursor: pointer; font-weight: 600; text-decoration: underline; }
+.text-danger { color: #ff4d4d !important; }
+
+/* ================= MAIN APP ================= */
+.app-container { width: 100vw; height: 100vh; background: var(--bg-main); backdrop-filter: blur(20px); display: flex; animation: fadeInHalfway 1.5s ease-in; }
+
+/* Sidebar & Settings Dropdown */
+.sidebar { width: 260px; background: var(--bg-sidebar); padding: 30px 20px; display: flex; flex-direction: column; border-right: 1px solid rgba(150,150,150,0.1); position: relative;}
+.logo-container { display: flex; align-items: center; margin-bottom: 50px; }
+.brand-logo { width: 35px; margin-right: 15px; }
+.brand-name {
+    /* ✨ Angelos Style Bubbly Font ✨ */
+    font-family: 'Luckiest Guy', cursive !important;
+    font-size: 38px !important;
+    letter-spacing: 1px !important;
+    
+    /* 🥈 Silver to White Gradient Logic (image_cc4013.png reference) */
+    background: linear-gradient(to bottom, #ffffff 0%, #d1d1d1 50%, #ffffff 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    
+    /* 🌑 Intense 3D Layered Shadow */
+    filter: drop-shadow(2px 2px 0px #333) 
+            drop-shadow(4px 4px 0px #1a1a1a);
+            
+    display: inline-block;
+    padding-bottom: 5px;
+}
+
+.side-nav { flex: 1; display: flex; flex-direction: column; gap: 5px;}
+.nav-item { display: flex; align-items: center; padding: 16px; border-radius: 8px; color: var(--text-secondary); cursor: pointer; border: none; background: transparent; width: 100%; font-size: 16px;}
+.nav-item:hover { background: var(--bg-input); color: var(--text-primary); }
+.nav-item.active { background: var(--accent-main); color: var(--text-primary); border-left: 3px solid var(--accent-solid); }
+.nav-item i { margin-right: 15px; width: 20px; text-align: center; }
+
+/* Bottom Left Settings lock */
+.settings-nav { margin-top: auto; position: relative; }
+.settings-dropdown { position: absolute; bottom: 80px; left: 0px; width: 220px; background: var(--bg-modal); border-radius: 8px; box-shadow: 0 5px 20px rgba(0,0,0,0.3); padding: 10px 0; border: 1px solid rgba(150,150,150,0.1); z-index: 100; }
+.setting-option { padding: 12px 20px; cursor: pointer; font-size: 14px; transition: 0.2s; background: transparent; border: none; color: var(--text-primary); width: 100%; text-align: left; display: flex; align-items: center; gap: 10px;}
+.setting-option:hover { background: var(--bg-input); }
+
+/* Main Content Layout */
+.main-content-area { flex: 1; display: flex; flex-direction: column; }
+.top-header { height: 75px; padding: 0 40px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(150,150,150,0.1); }
+.header-left { display: flex; align-items: center; }
+.btn-new-chat { background: var(--accent-solid); color: var(--btn-text); border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-weight: 600; display: flex; align-items: center; gap: 8px; }
+
+/* Icon Buttons (Moon & Logout) */
+.btn-icon-square {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 42px !important;
+    height: 42px !important; /* Same height as profile box */
+    border-radius: 12px !important;
+    background: #1e1e24 !important;
+    border: 1px solid #2d2d35 !important;
+    color: #ffffff !important;
+    cursor: pointer !important;
+    padding: 0 !important; /* Padding zero taaki icon center mein rahe */
+    transition: 0.2s !important;
+}
+
+/* Specific fix for FontAwesome Icons inside buttons */
+.btn-icon-square i {
+    font-size: 18px !important;
+    line-height: 1 !important; /* Extra space khatam karne ke liye */
+    display: block !important;
+}
+
+/* Logout Button (Power Icon) ke liye specific margin fix */
+.btn-icon-square.text-danger {
+    margin-right: 5px !important; /* Ekdum corner se halka sa gap */
+}
+
+.btn-icon-square:hover {
+    background: #282832 !important;
+    border-color: #3d3d4a !important;
+}
+
+.content-body-split { flex: 1; display: flex; overflow: hidden; }
+.contact-panel { width: 340px; background: var(--bg-panel); border-right: 1px solid rgba(150,150,150,0.1); padding-top: 10px; display: flex; flex-direction: column;}
+.panel-header { padding: 15px 20px 10px 20px; color: var(--text-muted); font-size: 12px; text-transform: uppercase; letter-spacing: 1px;}
+.contacts-list-scroll { flex: 1; overflow-y: auto; padding: 0 10px; }
+
+.contact-item { display: flex; padding: 15px; border-radius: 8px; cursor: pointer; margin-bottom: 5px; transition: 0.1s;}
+.contact-item:hover { background: rgba(255,255,255,0.02); }
+.contact-item.active { background: var(--bg-input); border-left: 3px solid var(--accent-solid); }
+.avatar-wrapper { position: relative; margin-right: 15px; }
+.avatar-wrapper img { width: 45px; height: 45px; object-fit: cover; }
+.header-dp { width: 48px; height: 48px; object-fit: cover; border-radius: 12px; }
+.status-dot { position: absolute; bottom: -2px; right: -2px; width: 14px; height: 14px; border-radius: 50%; border: 3px solid var(--bg-panel); background: var(--status-online); }
+.contact-info { display: flex; flex-direction: column; justify-content: center;}
+.name { font-weight: 600; font-size: 15px; color: var(--text-primary); }
+.preview { font-size: 12px; color: var(--text-secondary); }
+
+/* Chat Window Perfect UI */
+.chat-window { flex: 1; display: flex; flex-direction: column; background: rgba(0,0,0,0.1); background-size: cover; background-position: center; transition: background 0.3s ease; position: relative; }
+.chat-window::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.3); z-index: 0; } /* Tints background image */
+.chat-header { height: 75px; padding: 0 40px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(150,150,150,0.1); background: var(--bg-panel); position: relative; z-index: 1;}
+.chat-partner-info { display: flex; align-items: center; gap: 15px; }
+
+.messages-container { flex: 1; padding: 40px; overflow-y: auto; display: flex; flex-direction: column; gap: 15px; position: relative; z-index: 1; scroll-behavior: smooth; }
+.time-divider { text-align: center; color: var(--text-muted); font-size: 11px; margin: 20px 0; letter-spacing: 1px;}
+.message { display: flex; flex-direction: column; max-width: 65%; animation: msgFadeIn 0.2s ease-out; }
+@keyframes msgFadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+.message.received { align-self: flex-start; }
+.message.sent { align-self: flex-end; align-items: flex-end; }
+.sender-name { font-size: 10px; color: var(--text-muted); margin-bottom: 3px; }
+
+/* Critical Image Containment Fix */
+.shared-image { max-width: 100%; width: 280px; max-height: 280px; object-fit: cover; border-radius: 8px; margin-top: 10px; display: block; border: 2px solid rgba(255,255,255,0.05); }
+
+/* Chat Input Area */
+.chat-input-area { padding: 20px 40px; display: flex; gap: 15px; background: var(--bg-panel); transition: opacity 0.3s ease; position: relative; z-index: 1;}
+.disabled-area { pointer-events: none; opacity: 0.4; }
+.input-wrapper { flex: 1; background: var(--bg-input); padding: 10px 20px; border-radius: 8px; display: flex; align-items: center; border: 1px solid rgba(150,150,150,0.05); }
+.input-wrapper input { flex: 1; background: transparent; border: none; outline: none; color: var(--text-primary); margin: 0 15px; font-size: 15px; }
+.input-wrapper input::placeholder { color: var(--text-muted); }
+.action-icon { color: var(--text-muted); cursor: pointer; font-size: 18px; transition: 0.2s; }
+.action-icon:hover { color: var(--text-primary); }
+.btn-send { width: 50px; height: 50px; background: var(--accent-solid); color: var(--btn-text); border: none; border-radius: 8px; cursor: pointer; font-size: 18px; }
+
+/* ================= MODALS ================= */
+.modal { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.85); backdrop-filter: blur(5px); display: flex; justify-content: center; align-items: center; z-index: 2000; animation: modalFade 0.3s ease-out; }
+@keyframes modalFade { from { opacity: 0; } to { opacity: 1; } }
+.modal-content { background: var(--bg-modal); padding: 40px; border-radius: 12px; width: 400px; position: relative; border: 1px solid rgba(150,150,150,0.1); text-align: center;}
+.close-modal { position: absolute; top: 15px; right: 20px; font-size: 28px; color: var(--text-muted); cursor: pointer; }
+.close-modal:hover { color: var(--text-primary); }
+.modal-content h3 { margin-bottom: 10px; }
+.modal-content p { color: var(--text-secondary); font-size: 14px; margin-bottom: 20px;}
+
+/* New Chat User List */
+.all-users-list { max-height: 300px; overflow-y: auto; padding-right: 10px; }
+.all-users-list .user-item { background: rgba(255,255,255,0.03); margin-bottom: 5px; }
+
+/* Profile Modal Specifics */
+.profile-modal-content { width: 360px; padding: 50px 30px; }
+.profile-dp-large { width: 120px; height: 120px; object-fit: cover; margin-bottom: 20px; border: 4px solid var(--bg-input); }
+#profile-username-display { font-size: 20px; margin-bottom: 5px; }
+#profile-bio-display { color: var(--text-secondary); margin-bottom: 30px; font-style: italic; }
+
+/* Profile Edit Form */
+.dp-edit-wrapper { position: relative; width: 120px; margin: 0 auto 20px auto; }
+.btn-icon-circle { position: absolute; bottom: 0; right: 0; width: 35px; height: 35px; border-radius: 50%; background: var(--accent-solid); color: var(--btn-text); border: 2px solid var(--bg-modal); cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 14px; }
+.edit-label { text-align: left; font-size: 12px; color: var(--text-muted); text-transform: uppercase; margin-bottom: 5px;}
+.bio-textarea { width: 100%; height: 80px; padding: 12px; background: var(--bg-input); color: var(--text-primary); border-radius: 6px; border: none; resize: none; margin-bottom: 20px; }
+.modal-actions { display: flex; flex-direction: column; gap: 10px;}
+
+/* --- Professional and Dim Chat Background (70% Deep Black Overlay) --- */
+/* The main chat container, with positioning and background settings */
+#chat-window-area {
+    position: relative; /* Required for conditional overlay positioning */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    transition: background 0.3s ease;
+}
+
+/* The DIM overlay effect, *ONLY* applied when .has-background is present */
+#chat-window-area.has-background::before {
+    content: ""; /* Required for pseudo-elements */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7); /* Deep professional dimness: 70% semi-transparent black */
+    z-index: 0; /* Place overlay below content, above background image */
+}
+
+/* Ensure *CONTENT* remains bright and sits on top of the overlay *when a background is present* */
+.has-background .chat-header,
+.has-background .messages-container,
+.has-background .chat-input-area {
+    position: relative; /* Critical for z-index to work */
+    z-index: 1; /* Content sits *on top* of the overlay (z-index: 0) */
+}
+
+/* ================= MESSAGE BUBBLE PERFECT UI ================= */
+.bubble { padding: 12px 18px; font-size: 15px; color: var(--text-primary); word-wrap: break-word; line-height: 1.4; position: relative; max-width: 100%;}
+
+/* RECEIVED MESSAGES (Default Gray Glass) */
+.message.received .bubble { background: rgba(45, 45, 53, 0.7); border-radius: 4px 16px 16px 16px; border: 1px solid rgba(150,150,150,0.1); backdrop-filter: blur(2px);}
+
+/* 💎 NAYA SENT MESSAGES STYLE (Unique Electric Glass Outline) 💎 */
+/* Moving away from a standard filled color to avoid the Instagram look */
+.message.sent .bubble {
+    /* Step 1: Transparent base with strong glass blur */
+    background: rgba(32, 32, 38, 0.4); /* Transparent panel blend */
+    border-radius: 16px 4px 16px 16px; /* Chat bubble shape */
+    backdrop-filter: blur(10px) saturate(180%); /* Strong futuristic glass effect */
+    
+    /* Step 2: Complex gradient border (Cyan to Magenta) gives it the holographic look */
+    /* This creates a very thin electric glow around the bubble */
+    border: 1px solid transparent; /* Hide normal border to use gradient */
+    background-image: linear-gradient(rgba(32, 32, 38, 0.4), rgba(32, 32, 38, 0.4)), 
+                      linear-gradient(135deg, #00f2fe 0%, #4facfe 30%, #a255ff 70%, #ff4fac 100%);
+    background-origin: border-box;
+    background-clip: padding-box, border-box; /* Gradient *only* on the border */
+
+    /* Step 3: Text styling to match the electric aesthetic */
+    color: #ffffff;
+    
+    /* Step 4: Add depth with multiple shadows */
+    /* Internal glass shine and external holographic neon glow */
+    box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.1), /* Top glass edge */
+                0 4px 15px rgba(0, 0, 0, 0.4); /* General depth */
+}
+
+/* Naya effect for the message text *inside* sent bubble for better readability */
+.message.sent .bubble .msg-text {
+    /* Halka sa electric text shadow to make it pop */
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+}
+/* --- TYPING INDICATOR STYLES --- */
+.typing-text { 
+    font-size: 11px; 
+    color: var(--status-online); /* Green electric color */
+    font-style: italic; 
+    animation: typingBlink 1.5s infinite; 
+    margin-top: 2px;
+}
+@keyframes typingBlink { 
+    0% { opacity: 0.3; } 
+    50% { opacity: 1; } 
+    100% { opacity: 0.3; } 
+}
+/* --- UNREAD MESSAGE HIGHLIGHT STYLES --- */
+.contact-item.unread {
+    background: rgba(255, 255, 255, 0.08);
+    border-left: 3px solid var(--status-online); /* Green alert border */
+}
+
+.contact-item.unread .name {
+    font-weight: 800;
+    color: #ffffff; /* Pure white name */
+}
+
+.contact-item.unread .preview {
+    font-weight: 700;
+    color: #ffffff; /* Pure white message preview */
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.4); /* Glow effect */
+}
+/* --- BULLETPROOF READ RECEIPTS STYLES --- */
+.msg-info { 
+    display: flex; 
+    align-items: center; 
+    gap: 5px; 
+    margin-top: 4px; 
+}
+.message.sent .msg-info { justify-content: flex-end; }
+.message.received .msg-info { justify-content: flex-start; }
+
+.msg-status-text { 
+    font-size: 10px; 
+    margin-left: 5px; 
+    font-weight: 600;
+    transition: all 0.2s ease; 
+    letter-spacing: 0.5px;
+}
+.status-sent { color: #858590 !important; } /* Grey "Sent" */
+.status-read { color: #4ade80 !important; text-shadow: 0 0 5px rgba(74, 222, 128, 0.4) !important; font-weight: 700 !important;} /* Green "Read" */
+/* --- TOP HEADER NEW UI UPGRADES --- */
+.header-left { display: flex; align-items: center; gap: 15px; }
+.connection-status { display: flex; align-items: center; gap: 6px; font-size: 11px; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 1px;}
+.pulse-dot { width: 8px; height: 8px; background: var(--status-online); border-radius: 50%; box-shadow: 0 0 8px var(--status-online); animation: pulse 2s infinite; }
+@keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.4; } 100% { opacity: 1; } }
+
+.header-center { flex: 1; display: flex; justify-content: center; padding: 0 40px; }
+.global-search { display: flex; align-items: center; background: var(--bg-input); width: 100%; max-width: 400px; padding: 10px 15px; border-radius: 8px; border: 1px solid rgba(150,150,150,0.05); }
+.global-search i { color: var(--text-muted); font-size: 14px; margin-right: 10px; }
+.global-search input { background: transparent; border: none; outline: none; color: var(--text-primary); width: 100%; font-size: 13px; }
+
+.header-right {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-end !important; /* Right side lock */
+    gap: 12px !important;
+    margin-left: auto !important; /*buttons right corner */
+    padding-right: 0 !important; /* Extra space khatam */
+}
+
+/* Profile Section */
+.header-profile {
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+    padding: 6px 15px !important;
+    background: rgba(255, 255, 255, 0.05) !important;
+    border-radius: 50px !important;
+    height: 42px !important; /* height fix */
+}
+.header-profile:hover { background: rgba(255,255,255,0.05); }
+.header-profile img { width: 30px; height: 30px; object-fit: cover; }
+.header-profile span { font-size: 13px; font-weight: 600; color: var(--text-primary); padding-right: 5px;}
+
+/* --- SEARCH DROPDOWN UI --- */
+.global-search { position: relative; } /* Dropdown ki jagah */
+
+.search-dropdown { 
+    position: absolute; 
+    top: 115%; 
+    left: 0; 
+    width: 100%; 
+    background: var(--bg-modal); 
+    border: 1px solid rgba(150,150,150,0.1); 
+    border-radius: 8px; 
+    box-shadow: 0 10px 30px rgba(0,0,0,0.6); 
+    max-height: 300px; 
+    overflow-y: auto; 
+    z-index: 1000; 
+}
+.search-result-item { 
+    display: flex; 
+    align-items: center; 
+    padding: 12px 15px; 
+    cursor: pointer; 
+    transition: 0.2s; 
+    border-bottom: 1px solid rgba(150,150,150,0.05); 
+}
+.search-result-item:last-child { border-bottom: none; }
+.search-result-item:hover { background: var(--bg-input); }
+.search-result-item img { width: 35px; height: 35px; border-radius: 12px; margin-right: 12px; object-fit: cover; }
+.search-result-item span { font-size: 14px; font-weight: 500; color: var(--text-primary); }
+/* --- DELETION & CONTEXT MENU UI --- */
+/* --- PROFESSIONAL DELETED MESSAGE UI (THE FIX) --- */
+
+/* Base styles for the special "deleted" bubble container */
+.message .deleted-bubble {
+    background: rgba(150, 150, 150, 0.03) !important; /* Extremely muted background */
+    border: 1px dashed rgba(255, 77, 77, 0.1) !important; /* Subtle, faint red dashed border */
+    color: var(--text-muted) !important;
+    border-radius: 8px !important;
+    box-shadow: none !important; /* Remove normal bubble shadow */
+}
+
+/* Sent vs Received position adjustment for the dashed special bubble */
+.message.sent .deleted-bubble {
+    padding: 10px 15px 10px 25px !important; /* Adjust padding for sender */
+}
+.message.received .deleted-bubble {
+    padding: 10px 25px 10px 15px !important; /* Adjust padding for recipient */
+}
+
+/* Style the text inside the deleted message for high readability */
+.deleted-msg {
+    font-style: italic !important;
+    color: rgba(255, 255, 255, 0.45) !important; /* Crisp color for perfect visibility on dark mode */
+    font-size: 13px !important;
+    font-weight: 500 !important; /* Slightly bolder to make it stand out */
+    letter-spacing: 0.3px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    white-space: pre-wrap; /* Text wrapped professionally */
+}
+
+/* Align text based on who sent it */
+.message.sent .deleted-msg { justify-content: flex-end; text-align: right;}
+.message.received .deleted-msg { justify-content: flex-start; text-align: left;}
+
+.msg-info { position: relative; }
+.msg-options { font-size: 12px; color: var(--text-muted); cursor: pointer; opacity: 0; transition: 0.2s; padding: 0 5px; }
+.message:hover .msg-options { opacity: 1; }
+
+.msg-actions { 
+    position: absolute; 
+    background: var(--bg-modal); 
+    border: 1px solid rgba(150,150,150,0.1); 
+    border-radius: 8px; 
+    box-shadow: 0 10px 25px rgba(0,0,0,0.6); 
+    z-index: 1000; 
+    display: flex; 
+    flex-direction: column; 
+    padding: 5px; 
+    min-width: 150px;
+}
+.msg-actions button { 
+    background: transparent; 
+    border: none; 
+    color: var(--text-primary); 
+    padding: 10px; 
+    text-align: left; 
+    cursor: pointer; 
+    border-radius: 5px; 
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.msg-actions button:hover { background: var(--bg-input); }
+.text-danger { color: #ff4d4d !important; }
+
+.btn-danger-outline { 
+    border: 1px solid #ff4d4d; 
+    color: #ff4d4d; 
+    background: transparent; 
+    padding: 12px; 
+    border-radius: 6px; 
+    cursor: pointer; 
+    margin-top: 15px; 
+    width: 100%; 
+    font-weight: 600;
+    transition: 0.2s;
+}
+.btn-danger-outline:hover { background: #ff4d4d; color: white; }
+/* --- SIDEBAR CHAT DELETE BUTTON UI --- */
+.contact-item { 
+    position: relative; 
+    padding-right: 40px !important; /* Button ke liye jagah */
+}
+.delete-chat-btn {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    opacity: 0;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    font-size: 14px;
+    padding: 8px;
+    border-radius: 5px;
+    z-index: 10;
+}
+.contact-item:hover .delete-chat-btn { opacity: 0.4; }
+.delete-chat-btn:hover { 
+    color: #ff4d4d !important; 
+    opacity: 1 !important; 
+    background: rgba(255, 77, 77, 0.1);
+    transform: translateY(-50%) scale(1.1); 
+}
+/* login / register background image fix */
+
+.auth-container {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    background: #000000 !important; /* Black Background */ 
+}
+
+.auth-bg {
+    display: block; 
+    position: absolute;
+    top: -20px; left: -20px; right: -20px; bottom: -20px; 
+    background-image: url('cool-background.png'); 
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    filter: brightness(0.4) blur(5px); 
+    z-index: -1;
+}
+
+/* Professional Solid Card */
+.auth-box {
+    position: relative;
+    background: #18181c !important; /* Solid dark gray, no transparency issues */
+    border: 1px solid #2a2a32 !important;
+    border-radius: 16px; 
+    padding: 45px 35px;
+    width: 100%;
+    max-width: 400px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+    text-align: center;
+}
+
+/* Logo adjustment */
+.auth-logo { 
+    width: 65px; 
+    margin-bottom: 25px; 
+    filter: drop-shadow(0 2px 5px rgba(0,0,0,0.5));
+}
+
+/* attractive & bold welcome text */
+.auth-box h2 {
+    font-family: 'Righteous', cursive !important;
+    font-size: 32px !important;
+    font-weight: 700 !important;
+    letter-spacing: 1px;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+    
+    /* Silver-Metallic Gradient (Angelos reference) */
+    background: linear-gradient(to bottom, #ffffff 0%, #e0e0e0 50%, #ffffff 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    
+    /* Heavy 3D Depth Shadow */
+    filter: drop-shadow(2px 2px 0px #222) 
+            drop-shadow(4px 4px 0px #111);
+    
+    /* Animation taaki login box khulte hi text pop ho */
+    animation: authHeaderPop 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes authHeaderPop {
+    0% { transform: scale(0.8); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+.text-danger { 
+    color: #ef4444 !important; /* Standard professional red */
+    font-size: 13px !important;
+    margin-top: 10px;
+}
+
+/* Clean, High-Contrast Inputs */
+.auth-input {
+    width: 100%;
+    background: #222228 !important; /* Slightly lighter than the card */
+    border: 1px solid #33333c !important;
+    color: #ffffff !important; 
+    padding: 14px 16px;
+    border-radius: 10px;
+    margin-bottom: 16px;
+    font-size: 15px;
+    transition: all 0.2s ease;
+    box-sizing: border-box;
+}
+
+.auth-input::placeholder {
+    color: #888891 !important; /* Professional muted gray */
+    opacity: 1 !important; 
+}
+
+.auth-input:focus {
+    background: #25252c !important;
+    border-color: #6366f1 !important; /* Professional Indigo focus outline */
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15); /* Clean focus ring instead of neon glow */
+}
+
+/* High-Contrast Professional Button */
+.auth-btn {
+    width: 100%;
+    background: #ffffff !important; /* Crisp white button on dark theme is very premium */
+    color: #000000 !important; 
+    border: none !important;
+    padding: 14px;
+    border-radius: 10px !important;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin-top: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1) !important;
+}
+
+.auth-btn:hover {
+    background: #e5e5e5 !important;
+    transform: translateY(-1px);
+}
+
+/* Standard Links */
+.auth-switch { 
+    margin-top: 25px; 
+    font-size: 14px; 
+    color: #888891; 
+}
+
+.auth-switch span { 
+    color: #ffffff; 
+    font-weight: 500; 
+    cursor: pointer; 
+    transition: color 0.2s; 
+}
+
+.auth-switch span:hover { 
+    text-decoration: underline; 
+}
+/* FLASH FIX: Body hamesha black rahegi */
+html, body {
+    background-color: #000000 !important;
+    margin: 0;
+    padding: 0;
+}
+
+/* Auth container ko thoda smoothly reveal karne ke liye */
+#auth-container, #main-app {
+    animation: fadeInApp 0.5s ease-in forwards;
+}
+
+@keyframes fadeInApp {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+/* VIBEFY GRADIENT AVATAR */
+.default-avatar {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* Dark Theme se match karta hua gradient */
+    background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+    color: white;
+    font-weight: 700;
+    font-size: 18px;
+    text-transform: uppercase;
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.1);
+}

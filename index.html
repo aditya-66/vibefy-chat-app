@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vibefy | Full Stack Chat</title>
+    <link href="https://fonts.googleapis.com/css2?family=Righteous&family=Luckiest+Guy&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+</head>
+<body class="dark-theme">
+
+   <div id="auth-container" class="auth-container hidden">
+        
+        <div class="auth-bg"></div> 
+
+        <div class="auth-box" id="login-box">
+            <img src="logo.svg" alt="Logo" class="auth-logo">
+            <h2>Welcome Back</h2>
+            <input type="text" id="login-username" placeholder="Username" class="auth-input">
+            <input type="password" id="login-password" placeholder="Password" class="auth-input">
+            <button class="auth-btn" onclick="login()">Login</button>
+            <p id="auth-error-msg" class="text-danger"></p>
+            <p class="auth-switch">Don't have an account? <span onclick="toggleAuth()">Register here</span></p>
+        </div>
+
+        <div class="auth-box hidden" id="register-box">
+            <img src="logo.svg" alt="Logo" class="auth-logo">
+            <h2>Create Account</h2>
+            <input type="text" id="reg-username" placeholder="Choose a Username" class="auth-input">
+            <input type="password" id="reg-password" placeholder="Create Password" class="auth-input">
+            <button class="auth-btn" onclick="register()">Register</button>
+            <p class="auth-switch">Already have an account? <span onclick="toggleAuth()">Login here</span></p>
+        </div>
+    </div>
+
+    <div class="app-container hidden" id="main-app">
+        <aside class="sidebar">
+            <div class="logo-container" onclick="goHome()" style="cursor: pointer;" title="Go to Home">
+                <img src="logo.svg" alt="Vibefy Logo" class="brand-logo">
+                <span class="brand-name">Vibefy</span>
+            </div>
+            
+            <nav class="side-nav">
+                <div class="nav-item active" onclick="goHome()"><i class="fas fa-comment-dots"></i><span><b>Chats</b></span></div>
+                <div class="nav-item" onclick="toggleNewChatModal()"><i class="fas fa-compass"></i><span><b>Explore</b></span></div>
+                <div class="nav-item" onclick="fetchCallHistory()"><i class="fas fa-phone-alt"></i><span><b>Call History</b></span></div>
+                <div class="nav-item" onclick="toggleProfileModal()"><i class="fas fa-user-circle"></i><span><b>My Profile</b></span></div>
+            </nav>
+
+            <div class="settings-nav">
+                <button class="nav-item settings-btn" id="settings-toggle" style="background: transparent; border: none; width: 100%; text-align: left; font-size: 16px;">
+                    <i class="fas fa-cog"></i><span>Settings</span>
+                </button>
+                
+                <div class="settings-dropdown hidden" id="settings-menu">
+                    <button class="setting-option" onclick="toggleTheme()"><i class="fas fa-moon"></i> Toggle Theme</button>
+                    <button class="setting-option" onclick="document.getElementById('bg-upload').click()"><i class="fas fa-image"></i> Change Chat BG</button>
+                    <button class="setting-option text-danger" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</button>
+                </div>
+            </div>
+        </aside>
+
+        <main class="main-content-area">
+            <header class="top-header">
+                <div class="header-left">
+                    <button class="btn-new-chat" onclick="toggleNewChatModal()"><i class="fas fa-plus"></i> New Chat</button>
+                </div>
+
+                <div class="header-center">
+                    <div class="global-search">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="global-search-input" placeholder="Search friends to chat...">
+                        <div id="search-results-dropdown" class="search-dropdown hidden"></div>
+                    </div>
+                </div>
+
+                <div class="header-right">
+                    <div class="header-profile" onclick="toggleProfileModal()" title="View Profile">
+                        <img id="header-mini-dp" src="default-avatar.png" alt="DP" class="squircle">
+                        <span id="header-mini-name">User</span>
+                    </div>
+                    
+                    <button class="btn-icon-square" title="Toggle Theme" onclick="toggleTheme()"><i class="fas fa-moon"></i></button>
+                    <button class="btn-icon-square text-danger" title="Logout" onclick="logout()"><i class="fas fa-power-off"></i></button>
+                </div>
+            </header>
+
+            <div class="content-body-split">
+                <section class="contact-panel">
+                    <h4 class="panel-header">Recent Chats & Friends</h4>
+                    <div class="contacts-list-scroll" id="dynamic-user-list">
+                    </div>
+                </section>
+
+                <section class="chat-window" id="chat-window-area">
+            <div class="chat-header">
+            <div class="chat-partner-info">
+            <img src="default-avatar.png" id="chat-header-avatar" class="hidden header-dp">
+            <div class="header-text-group" style="display: flex; flex-direction: column;">
+            <h4 id="chat-header-name">Select a user to Chat</h4>
+            <span id="typing-indicator" class="typing-text hidden" style="font-size: 11px; color: #4ade80; font-style: italic;">is typing...</span>
+        </div>
+    </div>
+
+    <div id="call-buttons-container" class="hidden" style="margin-left: auto; display: flex; gap: 12px; align-items: center;">
+        
+        <button id="voice-call-btn" onclick="triggerCall('audio')" title="Start Voice Call" style="background: #25D366; color: white; border: none; border-radius: 50%; width: 42px; height: 42px; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.3); transition: transform 0.2s;">
+            <i class="fas fa-phone-alt"></i>
+        </button>
+
+        <button id="video-call-btn" onclick="triggerCall('video')" title="Start Video Call" style="background: linear-gradient(to right, #3a7bd5, #00d2ff); color: white; border: none; border-radius: 50%; width: 42px; height: 42px; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.3); transition: transform 0.2s;">
+            <i class="fas fa-video"></i>
+        </button>
+        
+    </div>
+</div>
+
+                    <div class="messages-container" id="messages-container"></div>
+
+                    <input type="file" id="media-upload" accept="image/*" class="hidden">
+                    <input type="file" id="bg-upload" accept="image/*" class="hidden">
+
+                    <div class="chat-input-area disabled-area" id="input-area">
+                        <div class="input-wrapper" style="position: relative;">
+                            <i class="fas fa-paperclip action-icon" onclick="triggerMediaUpload()" title="Send Media"></i>
+                            <input type="text" id="chat-input" placeholder="Write a message...">
+                            
+                            <div id="emoji-picker" class="emoji-picker hidden">
+                                <span onclick="addEmoji('😀')">😀</span>
+                                <span onclick="addEmoji('😂')">😂</span>
+                                <span onclick="addEmoji('😍')">😍</span>
+                                <span onclick="addEmoji('🥰')">🥰</span>
+                                <span onclick="addEmoji('😎')">😎</span>
+                                <span onclick="addEmoji('😭')">😭</span>
+                                <span onclick="addEmoji('🥺')">🥺</span>
+                                <span onclick="addEmoji('😡')">😡</span>
+                                <span onclick="addEmoji('👍')">👍</span>
+                                <span onclick="addEmoji('🙏')">🙏</span>
+                                <span onclick="addEmoji('🔥')">🔥</span>
+                                <span onclick="addEmoji('❤️')">❤️</span>
+                                <span onclick="addEmoji('✨')">✨</span>
+                                <span onclick="addEmoji('💯')">💯</span>
+                                <span onclick="addEmoji('🎉')">🎉</span>
+                            </div>
+
+                            <i class="far fa-smile action-icon" title="Emojis" onclick="toggleEmojiPicker()"></i>
+                        </div>
+                        <button class="btn-send action-btn" id="send-btn">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <div id="new-chat-modal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close-modal" onclick="toggleNewChatModal()">&times;</span>
+            <h3>Start a New Private Chat</h3>
+            <p>Select any registered user to initiate a conversation.</p>
+            <div id="all-users-list" class="all-users-list"></div>
+        </div>
+    </div>
+
+    <div id="profile-modal" class="modal hidden">
+        <div class="modal-content profile-modal-content">
+            <span class="close-modal" onclick="toggleProfileModal()">&times;</span>
+            <div class="profile-display" id="profile-view-section">
+                <img id="profile-dp-display" src="default-avatar.png" alt="DP" class="profile-dp-large squircle">
+                <h4 id="profile-username-display">Username</h4>
+                <p id="profile-bio-display">Bio description goes here...</p>
+                <button class="auth-btn" onclick="toggleEditProfileSection()"><i class="fas fa-user-cog"></i> Edit Profile</button>
+            </div>
+            <div id="profile-edit-section" class="profile-edit hidden">
+                <h3>Edit Profile</h3>
+                <div class="dp-edit-wrapper">
+                    <img id="profile-dp-edit-preview" src="default-avatar.png" alt="DP Preview" class="profile-dp-large squircle">
+                    <input type="file" id="dp-upload" accept="image/*" class="hidden">
+                    <button class="btn-icon-circle" onclick="document.getElementById('dp-upload').click()"><i class="fas fa-camera"></i></button>
+                </div>
+                <p class="edit-label">Bio:</p>
+                <textarea id="profile-bio-edit" placeholder="Share a little about yourself..." class="bio-textarea"></textarea>
+                <div id="profile-edit-section" class="hidden">
+                <button type="button" class="btn-danger-outline" onclick="removeProfilePicture()" style="margin-bottom: 10px;">
+                <i class="fas fa-trash-alt"></i> Remove Profile Picture
+                 </button>
+                <button class="auth-btn" onclick="saveProfileChanges()">Save Changes</button>
+            </div>
+                <div class="modal-actions">
+                    <button class="auth-btn" onclick="saveProfileChanges()">Save Changes</button>
+                    <button class="auth-btn secondary" onclick="toggleEditProfileSection()">Cancel</button>
+                    <button class="btn-danger-outline" onclick="deleteMyAccount()"><i class="fas fa-trash-alt"></i> Delete Account</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="splash-screen" class="splash-screen-black">
+    <div class="splash-center-lock">
+        <img src="logo.svg" alt="Logo" class="logo-snap" id="splash-logo">
+        <h1 class="vibefy-text-reveal" id="splash-text">Vibefy</h1>
+    </div>
+</div>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="client.js"></script>
+
+<!-- Calling feature -->
+<div id="video-call-modal" class="hidden" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(5, 5, 5, 0.98); backdrop-filter: blur(15px); z-index: 9999; display: flex; flex-direction: column; align-items: center; justify-content: center; font-family: 'Outfit', sans-serif;">
+
+    <div style="position: absolute; top: 6%; text-align: center; z-index: 10; width: 100%;">
+        <h2 id="calling-user-name" style="color: #ffffff; font-size: 38px; font-weight: 700; margin: 0; letter-spacing: 1px; text-shadow: 0 4px 15px rgba(0,0,0,0.8);">Calling...</h2>
+        <div style="display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 8px;">
+            <i class="fas fa-lock" style="color: #10b981; font-size: 12px;"></i>
+            <span id="calling-status" style="color: #10b981; font-size: 14px; font-weight: 400; letter-spacing: 1.5px; text-transform: uppercase;">End-to-End Secured</span>
+        </div>
+    </div>
+
+    <div style="position: relative; width: 92%; max-width: 1100px; height: 75vh; background: #0a0a0a; border-radius: 32px; overflow: hidden; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.9); border: 1px solid rgba(255,255,255,0.05); display: flex; justify-content: center; align-items: center; margin-top: 30px;">
+
+        <div id="audio-only-avatar" style="position: absolute; z-index: 1; display: flex; flex-direction: column; align-items: center;">
+            <div class="pulse-ring" style="width: 140px; height: 140px; border-radius: 50%; background: linear-gradient(135deg, #1e293b, #0f172a); border: 2px solid rgba(255,255,255,0.05); display: flex; justify-content: center; align-items: center; font-size: 60px; color: #94a3b8; box-shadow: inset 0 0 20px rgba(0,0,0,0.8);">
+                <i class="fas fa-user"></i>
+            </div>
+        </div>
+
+        <video id="remote-video" autoplay playsinline style="width: 100%; height: 100%; object-fit: cover; position: relative; z-index: 2; border-radius: 32px;"></video>
+
+        <video id="local-video" autoplay playsinline muted style="width: 130px; height: 180px; position: absolute; bottom: 24px; right: 24px; border: 2px solid rgba(255,255,255,0.1); border-radius: 20px; object-fit: cover; background: #111; box-shadow: 0 15px 30px rgba(0,0,0,0.8); z-index: 3; transition: transform 0.3s ease;"></video>
+    </div>
+
+    <div style="position: absolute; bottom: 5%; display: flex; gap: 20px; z-index: 10; background: rgba(20, 20, 20, 0.7); padding: 12px 25px; border-radius: 40px; border: 1px solid rgba(255,255,255,0.08); backdrop-filter: blur(12px);">
+        
+        <button id="mute-audio-btn" onclick="toggleMute()" title="Mute/Unmute Mic" style="background: rgba(255, 255, 255, 0.1); color: white; width: 60px; height: 60px; border: none; border-radius: 50%; font-size: 20px; cursor: pointer; transition: all 0.2s ease; display: flex; justify-content: center; align-items: center;">
+            <i class="fas fa-microphone" id="mute-icon"></i>
+        </button>
+
+        <button onclick="endCall()" title="End Call" style="background: #ef4444; color: white; width: auto; min-width: 100px; height: 60px; border: none; border-radius: 30px; font-size: 22px; cursor: pointer; box-shadow: 0 4px 20px rgba(239, 68, 68, 0.3); transition: all 0.2s ease; display: flex; justify-content: center; align-items: center; padding: 0 35px; gap: 10px;">
+            <i class="fas fa-phone-slash"></i>
+        </button>
+    </div>
+    
+    <style>
+        .pulse-ring {
+            animation: darkPulse 2s infinite cubic-bezier(0.66, 0, 0, 1);
+        }
+        @keyframes darkPulse {
+            0% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.05); }
+            70% { box-shadow: 0 0 0 30px rgba(255, 255, 255, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); }
+        }
+        #mute-audio-btn:hover { background: rgba(255,255,255,0.15); transform: translateY(-2px); }
+        #mute-audio-btn.muted { background: #f97316; color: white; }
+        #local-video:hover { transform: scale(1.05); cursor: pointer; }
+    </style>
+</div>
+<div id="call-history-modal" class="modal hidden" style="z-index: 9998;">
+    <div class="modal-content" style="background: #111; color: white; border-radius: 16px; border: 1px solid #333; max-width: 400px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #333; padding-bottom: 15px;">
+            <h3 style="margin: 0;"><i class="fas fa-history" style="color: #00d2ff; margin-right: 10px;"></i> Recent Calls</h3>
+            <span class="close-modal" onclick="document.getElementById('call-history-modal').classList.add('hidden')" style="font-size: 24px; cursor: pointer;">&times;</span>
+        </div>
+        <div id="call-history-list" style="max-height: 400px; overflow-y: auto; margin-top: 15px; padding-right: 5px;">
+            <p style="text-align: center; color: #888;">Loading history...</p>
+        </div>
+    </div>
+</div>
+</body>
+</html>
