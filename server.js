@@ -7,6 +7,10 @@ const mysql = require('mysql2');
 const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
+const uploadDir = path.join(__dirname, 'uploads/dp');
+if (!fs.existsSync(uploadDir)) {
+    fs.mkdirSync(uploadDir, { recursive: true });
+}
 
 const app = express();
 const server = http.createServer(app);
@@ -22,7 +26,8 @@ const dbSetup = mysql.createConnection({
     host: process.env.DB_HOST, 
     user: process.env.DB_USER, 
     password: process.env.DB_PASSWORD, 
-    port: process.env.DB_PORT
+    port: process.env.DB_PORT,
+    ssl: { rejectUnauthorized: false }
 });
 
 let db; 
@@ -36,7 +41,8 @@ dbSetup.connect(err => {
             user: process.env.DB_USER, 
             password: process.env.DB_PASSWORD, 
             database: process.env.DB_NAME,
-            port: process.env.DB_PORT
+            port: process.env.DB_PORT,
+            ssl: { rejectUnauthorized: false }
         });
 
         db.connect(err => {
