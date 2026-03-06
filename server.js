@@ -21,7 +21,8 @@ app.use(express.urlencoded({limit: '50mb', extended: true}));
 const dbSetup = mysql.createConnection({ 
     host: process.env.DB_HOST, 
     user: process.env.DB_USER, 
-    password: process.env.DB_PASSWORD 
+    password: process.env.DB_PASSWORD, 
+    port: process.env.DB_PORT
 });
 
 let db; 
@@ -34,7 +35,8 @@ dbSetup.connect(err => {
             host: process.env.DB_HOST, 
             user: process.env.DB_USER, 
             password: process.env.DB_PASSWORD, 
-            database: process.env.DB_NAME 
+            database: process.env.DB_NAME,
+            port: process.env.DB_PORT
         });
 
         db.connect(err => {
