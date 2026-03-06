@@ -1,6 +1,6 @@
 # 📱 Vibefy Chat App 
 
-Vibefy is a real-time, full-stack chat application with integrated calling features. Built for seamless communication, it uses a modern tech stack to ensure speed, security, and reliability.
+***Vibefy is a real-time, full-stack chat application with integrated calling features. Built for seamless communication, it uses a modern tech stack to ensure speed, security, and reliability.***
 
 ## ✨ Features
 
